@@ -1,0 +1,5 @@
+<% if flash.key? :notice %>
+    <div class="<%= flash[:class].nil? ? 'alert alert-primary' : flash[:class] %> rounded">
+        <h5 class="notice"><%= flash[:notice].html_safe %></h5>
+    </div>
+<% end %>

@@ -1,0 +1,54 @@
+<div class="container">
+    <%= form_for @realtor, url: realtor_path(@realtor), method: :put do |f| %>
+        <div class="form-group">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name,
+                :class => "form-control #{ 'is-invalid' if @realtor.errors.has_key?(:first_name)}" %>
+            <div class="invalid-feedback">
+                <%= @realtor.errors[:first_name].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name,
+                :class => "form-control #{ 'is-invalid' if @realtor.errors.has_key?(:last_name)}" %>
+            <div class="invalid-feedback">
+                <%= @realtor.errors[:last_name].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>".html_safe) %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :phone_number %>
+            <%= f.text_field :phone_number, autofocus: true,
+                :class => "form-control #{ 'is-invalid' if @realtor.errors.has_key?(:phone_number)}" %>
+            <div class="invalid-feedback">
+                <%= @realtor.errors[:phone_number].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                :class => "form-control #{ 'is-invalid' if @realtor.errors.has_key?(:email)}" %>
+            <div class="invalid-feedback">
+                <%= @realtor.errors[:email].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>".html_safe) %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :real_estate_company %>
+            <%= f.select :real_estate_company_id,
+                [''] + RealEstateCompany.all.collect { |c| [c.name, c.id] },
+                {},
+                :class => "form-control #{'is-invalid' if @realtor.errors.has_key?(:real_estate_company_id)}" %>
+            <div class="invalid-feedback">
+                <%= @realtor.errors[:real_estate_company_id].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+        </div>
+    <% end %>
+</div>

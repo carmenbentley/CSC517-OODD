@@ -1,0 +1,10 @@
+<div>
+    <h5>Hello <%= authz_user.first_name %>, what would you like to do today?</h5>
+    <div class="d-flex flex-column justify-content-start align-items-start">
+        <%= link_to "Edit Your Profile", :edit_realtor_registration, :class => "btn btn-link" %>
+        <%= link_to "View Your Company", :real_estate_companies, :class => "btn btn-link" %>
+        <%= link_to "View Houses", :houses, :class => "btn btn-link" %>
+        <%= link_to "Search Houses", search_path, :class => "btn btn-link" %>
+        <%= link_to "View Inquiries", :inquiries, :class => "btn btn-link" %>
+    </div>
+</div>

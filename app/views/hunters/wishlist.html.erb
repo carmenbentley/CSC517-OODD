@@ -1,0 +1,42 @@
+<table class="table table-striped table-hover">
+    <caption>Wishlist</caption>
+    <thead class="thead-dark">
+        <tr>
+            <th class="header">Real Estate Company</th>
+            <th class="header">Realtor</th>
+            <th class="header">Owner</th>
+            <th class="header">Location</th>
+            <th class="header">Square Footage</th>
+            <th class="header">Year Built</th>
+            <th class="header">Style</th>
+            <th class="header">List Price</th>
+            <th class="header">Number of Floors</th>
+            <th class="header">Basement</th>
+            <th class="header" colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @wishlist.each do |h| %>
+        <tr>
+            <td><%= h.real_estate_company.name %></td>
+            <td><%= "#{h.realtor.first_name} #{h.realtor.last_name}" %></td>
+            <td><%= h.owner %></td>
+            <td><%= h.location %></td>
+            <td><%= h.square_footage %></td>
+            <td><%= h.year_built %></td>
+            <td><%= h.style %></td>
+            <td>$<%= h.list_price %></td>
+            <td><%= h.num_floors %></td>
+            <td><%= h.basement ? "Yes" : "No" %></td>
+            <td>
+            <%= button_to "View", house_path(h), method: :get,
+                :class => "btn btn-primary" %>
+            </td>
+            <td>
+            <%= link_to "Inquiries", inquiries_path({ house_id: h.id }), method: :get,
+                :class => "btn btn-primary" %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

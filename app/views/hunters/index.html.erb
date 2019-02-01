@@ -1,0 +1,11 @@
+<div>
+  <h5>Hello <%= current_hunter.first_name %>, what would you like to do today?</h5>
+  <div class="d-flex flex-column justify-content-start align-items-start">
+    <%= link_to "Edit Your Profile", :edit_hunter_registration, :class => "btn btn-link" %>
+    <%= link_to "View Real Estate Companies", :real_estate_companies, :class => "btn btn-link" %>
+    <%= link_to "View Houses", :houses, :class => "btn btn-link" %>
+    <%= link_to "Search Houses", search_path, :class => "btn btn-link" %>
+    <%= link_to "View Inquiries", :inquiries, :class => "btn btn-link" %>
+    <%= link_to "View Wishlist", hunters_wishlist_path, :class => "btn btn-link" %>
+  </div>
+</div>

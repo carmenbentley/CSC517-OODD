@@ -1,0 +1,75 @@
+<div class="container">
+    <h1>Real Estate Company</h1>
+    <div class="col-md-12 row">
+        <div class="col-md-1">
+            <%= button_to "Edit", edit_real_estate_company_path(@real_estate_company),
+                method: :get,
+                :disabled => current_user.is_a?(Hunter),
+                :class => "btn btn-primary" %>
+        </div>
+        <div class="col-md-1">
+            <%= button_to "Delete", @real_estate_company, method: :delete,
+                data: { confirm: "Are you sure?" },
+                :disabled => current_user.is_a?(Hunter),
+                :class => "btn btn-danger" %>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Name:</span>
+        </div>
+        <div class="col-md-10 content">
+            <span><%= @real_estate_company.name %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Website:</span>
+        </div>
+        <div class="col-md-10 content">
+            <a href="<%= @real_estate_company.website %>" target="_blank">
+                <%= @real_estate_company.website %>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Address:</span>
+        </div>
+        <div class="col-md-10 content">
+            <span><%= @real_estate_company.address %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Size:</span>
+        </div>
+        <div class="col-md-10 content">
+            <span><%= @real_estate_company.size %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Founded:</span>
+        </div>
+        <div class="col-md-10 content">
+            <span><%= @real_estate_company.founded %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Revenue:</span>
+        </div>
+        <div class="col-md-10 content">
+            <span>$<%= @real_estate_company.revenue %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 title">
+            <span>Synopsis:</span>
+        </div>
+        <div class="col-md-10 content">
+            <pre><%= @real_estate_company.synopsis %></pre>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="row">
+    <h3>Searching for your dream home?</h3>
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#filters">
+    Filters
+    </button>
+</div>
+<div class="collapse <%= "show" if @houses.empty? %>" id="filters">
+    <%= form_for @search_params, :url => search_path, :html => { :class => "form-inline" } do |f| %>
+        <div class="form-group form-element col-md-12">
+            <%= f.label "Location", :class => "form-label col-md-2" %>
+            <div class="col-md-4">
+                <%= f.text_field :location, :class => "form-control" %>
+            </div>
+        </div>
+        <div class="form-group form-element col-md-12">
+            <%= f.label "Minimum Price", :class => "form-label col-md-2" %>
+            <div class="col-md-4">
+                <%= f.number_field :min_price, :step => "0.01", :min => "0",
+                    :class => "form-control" %>
+            </div>
+        </div>
+        <div class="form-group form-element col-md-12">
+            <%= f.label "Maximum Price", :class => "form-label col-md-2" %>
+            <div class="col-md-4">
+                <%= f.number_field :max_price, :step => "0.01", :min => "0",
+                    :class => "form-control" %>
+            </div>
+        </div>
+        <div class="form-group form-element col-md-12">
+            <%= f.label "Minimum Area", :class => "form-label col-md-2" %>
+            <div class="col-md-4">
+                <%= f.number_field :min_area, :step => "0.01", :min => "0",
+                    :class => "form-control" %>
+            </div>
+        </div>
+        <div class="form-group form-element col-md-12">
+            <%= f.label "Maximum Area", :class => "form-label col-md-2" %>
+            <div class="col-md-4">
+                <%= f.number_field :max_area, :step => "0.01", :min => "0",
+                    :class => "form-control" %>
+            </div>
+        </div>
+        <div class="form-group form-element col-md-12">
+            <%= f.label "Style", :class => "form-label col-md-2" %>
+            <div class="col-md-4">
+                <%= f.select :style,
+                    [''] + House.styles.map { |x| [x, x] },
+                    {},
+                    :class => "form-control" %>
+            </div>
+        </div>
+        <div class="form-group form-element"
+             style="margin-left: 16px">
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+        </div>
+    <% end %>
+</div>
+<% unless @houses.empty? %>
+<div class="row">
+    <h3>Here's what you were looking for</h3>
+    <table class="table table-hover table-striped table-bordered">
+        <caption>List of Houses</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th class="header">Location</th>
+                <th class="header">Square Footage</th>
+                <th class="header">Year Built</th>
+                <th class="header">Style</th>
+                <th class="header">List Price</th>
+                <th class="header">Number of Floors</th>
+                <th class="header">Basement</th>
+                <th class="header" colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @houses.each do |h| %>
+                <tr>
+                    <td><%= h.location %></td>
+                    <td><%= h.square_footage %></td>
+                    <td><%= h.year_built %></td>
+                    <td><%= h.style %></td>
+                    <td>$<%= h.list_price %></td>
+                    <td><%= h.num_floors %></td>
+                    <td><%= h.basement ? "Yes" : "No" %></td>
+                    <td>
+                    <%= button_to "View", house_path(h), method: :get,
+                        :class => "btn btn-primary" %>
+                    </td>
+                    <td>
+                    <%= link_to "Inquiries", inquiries_path({ house_id: h.id }), method: :get,
+                        :class => "btn btn-primary" %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<% end %>

@@ -1,0 +1,53 @@
+<div class="container">
+    <%= form_for @hunter, url: hunter_index_path, method: :post do |f| %>
+        <div class="form-group">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name,
+                :class => "form-control #{ 'is-invalid' if @hunter.errors.has_key?(:first_name)}" %>
+            <div class="invalid-feedback">
+            <%= @hunter.errors[:first_name].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name,
+                :class => "form-control #{ 'is-invalid' if @hunter.errors.has_key?(:last_name)}" %>
+            <div class="invalid-feedback">
+            <%= @hunter.errors[:last_name].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>".html_safe) %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :phone %>
+            <%= f.text_field :phone, autofocus: true,
+                :class => "form-control #{ 'is-invalid' if @hunter.errors.has_key?(:phone)}" %>
+            <div class="invalid-feedback">
+            <%= @hunter.errors[:phone].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                :class => "form-control #{ 'is-invalid' if @hunter.errors.has_key?(:email)}" %>
+            <div class="invalid-feedback">
+            <%= @hunter.errors[:email].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>".html_safe) %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :preferred %>
+            <%= f.select :preferred, options_for_select([['Phone', '1'], ['Email', '2']]),
+                {},
+                :class => "form-control #{ 'is-invalid' if @hunter.errors.has_key?(:preferred)}" %>
+            <div class="invalid-feedback">
+            <%= @hunter.errors[:phone].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+        </div>
+    <% end %>
+</div>

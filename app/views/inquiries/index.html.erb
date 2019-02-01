@@ -1,0 +1,58 @@
+<div class="container">
+    <table class="table table-hover table-striped table-bordered">
+        <caption>List of Inquiries</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th class="header">Subject</th>
+                <th class="header">House Location</th>
+                <th class="header">Posted By</th>
+                <th class="header">Contact</th>
+                <th class="header">Message</th>
+                <th class="header" colspan="2">Reply</th>
+                <th class="header" colspan="3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @inquiries.each do |i| %>
+                <tr>
+                    <td><%= i.subject %></td>
+                    <td><%= i.house.location %></td>
+                    <td><%= i.hunter.first_name + " " + i.hunter.last_name %></td>
+                    <td>
+                        <a href="<%= i.hunter.preferred == 0 ? ('mailto:' + i.hunter.email) : ('call:' + i.hunter.phone) %>">
+                            <%= i.hunter.preferred == 0 ? i.hunter.email : i.hunter.phone %>
+                        </a>
+                    </td>
+                    <td><pre><%= i.message %></pre></td>
+                    <td>
+                        <% unless i.realtor.nil? %>
+                            <%= i.realtor.first_name + " " + i.realtor.last_name %>
+                        <% end %>
+                    </td>
+                    <td><%= i.reply %></td>
+                    <td>
+                        <%= button_to "Edit", edit_inquiry_path(i), method: :get,
+                                      :class => "btn btn-primary",
+                                      :disabled => current_user.is_a?(Realtor) %>
+                    </td>
+                    <td>
+                        <%= button_to "Delete", i, method: :delete, data: { confirm: "Are you sure?" },
+                                      :class => "btn btn-danger",
+                                      :disabled => current_user.is_a?(Realtor) %>
+                    </td>
+                    <td>
+                        <%= button_to "Reply", edit_inquiry_path(i), method: :get,
+                                      :class => "btn btn-success",
+                                      :disabled => !current_user.is_a?(Realtor) %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <% unless params[:house_id].nil? || !(current_user.is_a?(Hunter)) %>
+        <div class="col-md-12">
+            <%= link_to "Create", new_inquiry_path({ house_id: params[:house_id] }),
+                        :class => "btn btn-primary" %>
+        </div>
+    <% end %>
+</div>

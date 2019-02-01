@@ -1,0 +1,142 @@
+<div class="container">
+    <h1>House</h1>
+    <% if @house.photo.attached? %>
+        <div class="col-md-12" style="margin: 8px 0 8px 0">
+            <%= image_tag @house.photo %>
+        </div>
+    <% end %>
+    <div class="col-md-12 row">
+        <div class="col-md-1">
+          <%= button_to "Edit", edit_house_path(@house), method: :get,
+              :disabled => hunter_signed_in? || (realtor_signed_in? && @house.realtor != current_realtor),
+              :class => "btn btn-success" %>
+        </div>
+        <div class="col-md-1">
+          <%= button_to "Delete", @house, method: :delete,
+              data: { confirm: "Are you sure?" },
+              :disabled => hunter_signed_in? || (realtor_signed_in? && @house.realtor != current_realtor),
+              :class => "btn btn-danger" %>
+        </div>
+        <div class="col-md-1">
+          <% if hunter_signed_in? %>
+            <% unless current_user.houses.include? @house %>
+              <%= button_to "Add to Wishlist", add_to_wl_house_path(@house), method: :post,
+                  :class => "btn btn-success" %>
+            <% else %>
+              <%= button_to "Remove from Wishlist", remove_from_wl_house_path(@house),
+                  method: :delete, :class => "btn btn-danger" %>
+            <% end %>
+          <% end %>
+        </div>
+    </div>
+    <div class="col-md-12 row"
+         style="margin-top: 8px">
+      <div class="col-md-3 title">
+        <span>Real Estate Company:</span>
+      </div>
+      <div class="col-md-9 content">
+        <span><%= @house.real_estate_company.name %></span>
+      </div>
+    </div>
+    <div class="col-md-12 row">
+      <div class="col-md-3 title">
+        <span>Realtor:</span>
+      </div>
+      <div class="col-md-9 content">
+        <span>
+            <%= "#{@house.realtor.first_name} #{@house.realtor.last_name}" %>
+            (<a href="mailto:<%= @house.realtor.email %>"><%= @house.realtor.email %></a>)
+        </span>
+      </div>
+    </div>
+    <div class="col-md-12 row">
+      <div class="col-md-3 title">
+        <span>Owner:</span>
+      </div>
+      <div class="col-md-9 content">
+        <span><%= @house.owner %></span>
+      </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>Location:</span>
+        </div>
+        <div class="col-md-9 content">
+            <span><%= @house.location %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>Square Footage:</span>
+        </div>
+        <div class="col-md-9 content">
+            <span><%= @house.square_footage %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>Year Built:</span>
+        </div>
+        <div class="col-md-9 content">
+            <span><%= @house.year_built %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>Style:</span>
+        </div>
+        <div class="col-md-9 content">
+            <span><%= @house.style %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>List Price:</span>
+        </div>
+        <div class="col-md-9 content">
+            <span>$<%= @house.list_price %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>Number of Floors:</span>
+        </div>
+        <div class="col-md-9 content">
+            <span><%= @house.num_floors %></span>
+        </div>
+    </div>
+    <div class="col-md-12 row">
+        <div class="col-md-3 title">
+            <span>Basement:</span>
+        </div>
+        <div class="col-md-9 content">
+            <%= @house.basement ? "Yes" : "No" %>
+        </div>
+    </div>
+</div>
+<% if !hunter_signed_in? %>
+    <table class="table table-hover table-striped"
+           style="margin-top: 8px">
+        <caption>Potential Buyers</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Preferred Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @house.hunters.each do |h| %>
+            <tr>
+                <td><%= h.first_name %></td>
+                <td><%= h.last_name %></td>
+                <td>
+                    <a href="<%= h.preferred == 0 ? ('mailto:' + h.email) : ('call:' + h.phone) %>">
+                        <%= h.preferred == 0 ? h.email : h.phone %>
+                    </a>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>

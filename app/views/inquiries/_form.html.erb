@@ -1,0 +1,37 @@
+<%= form_for @inquiry do |form| %>
+    <%= form.text_field :house_id, value: params[:house_id], :style => "display: none" %>
+
+    <div class="form-group">
+        <%= form.label :subject %>
+        <%= form.text_field :subject,
+            :disabled => current_user.is_a?(Realtor),
+            :class => "form-control #{'is-invalid' if @inquiry.errors.key?(:subject)}" %>
+        <div class="invalid-feedback">
+            <%= @inquiry.errors[:subject].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :message %>
+        <%= form.text_area :message,
+            :disabled => current_user.is_a?(Realtor),
+            :class => "form-control #{'is-invalid' if @inquiry.errors.key?(:message)}" %>
+        <div class="invalid-feedback">
+            <%= @inquiry.errors[:message].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :reply %>
+        <%= form.text_area :reply,
+            :disabled => current_user.is_a?(Hunter),
+            :class => "form-control #{'is-invalid' if @inquiry.errors.key?(:reply)}" %>
+        <div class="invalid-feedback">
+            <%= @inquiry.errors[:reply].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= form.submit "Submit", :class => "btn btn-primary" %>
+    </div>
+<% end %>

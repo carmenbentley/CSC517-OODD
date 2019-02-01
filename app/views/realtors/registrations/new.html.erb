@@ -1,0 +1,78 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, autofocus: true,
+        :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:first_name)}" %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:first_name].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, autofocus: true,
+        :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:last_name)}" %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:last_name].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number, autofocus: true,
+        :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:phone_number)}" %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:phone_number].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+        :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:email)}" %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:email].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :real_estate_company %>
+    <%= f.select :real_estate_company_id,
+                 [''] + RealEstateCompany.all.collect { |c| [c.name, c.id] },
+                 {},
+                 { :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:real_estate_company_id)}" } %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:real_estate_company_id].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+      <small class="form-text text-muted">(<%= @minimum_password_length %> characters minimum)</small>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password",
+        :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:password)}" %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:password].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",
+        :class => "form-control #{ 'is-invalid' if resource.errors.has_key?(:password_confirmation)}" %>
+    <div class="invalid-feedback">
+      <%= resource.errors[:password_confirmation].map { |e| "<span>#{e.capitalize}</span>" }.join("<br>").html_safe %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Sign up", :class => "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= render "realtors/shared/links" %>

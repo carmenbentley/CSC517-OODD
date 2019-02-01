@@ -1,0 +1,41 @@
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">FullHouse</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <% if hunter_signed_in? %>
+            <%= link_to 'Home', hunters_path, :class => "nav-link" %>
+          <% elsif realtor_signed_in? %>
+            <%= link_to 'Home', realtors_path, :class => "nav-link" %>
+          <% elsif administrator_signed_in? %>
+            <%= link_to 'Home', administrators_path, :class => "nav-link" %>
+          <% else %>
+            <%= link_to 'Home', root_path, :class => "nav-link" %>
+          <% end %>
+        </li>
+        <% if hunter_signed_in? %>
+          <li><%= link_to 'Log Out', destroy_hunter_session_path, method: :delete, :class => "nav-link" %></li>
+        <% elsif realtor_signed_in? %>
+          <li><%= link_to 'Log Out', destroy_realtor_session_path, method: :delete, :class => "nav-link" %></li>
+        <% elsif administrator_signed_in? %>
+          <li><%= link_to 'Log Out', destroy_administrator_session_path, method: :delete, :class => "nav-link" %></li>
+        <% else %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sign In
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "House Hunter", new_hunter_session_path, :class => "dropdown-item" %>
+              <%= link_to "Realtor", new_realtor_session_path, :class => "dropdown-item" %>
+              <%= link_to "Administrator", new_administrator_session_path, :class => "dropdown-item" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</div>

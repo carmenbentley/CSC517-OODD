@@ -1,0 +1,61 @@
+<div class="container">
+  <table class="table table-hover table-striped table-bordered">
+    <caption>List of Houses</caption>
+    <thead class="thead-dark">
+    <tr>
+      <th class="header">Real Estate Company</th>
+      <th class="header">Realtor</th>
+      <th class="header">Owner</th>
+      <th class="header">Location</th>
+      <th class="header">Square Footage</th>
+      <th class="header">Year Built</th>
+      <th class="header">Style</th>
+      <th class="header">List Price</th>
+      <th class="header">Number of Floors</th>
+      <th class="header">Basement</th>
+      <th class="header" colspan="4">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @houses.each do |h| %>
+      <tr>
+        <td><%= h.real_estate_company.name %></td>
+        <td><%= "#{h.realtor.first_name} #{h.realtor.last_name}" %></td>
+        <td><%= h.owner %></td>
+        <td><%= h.location %></td>
+        <td><%= h.square_footage %></td>
+        <td><%= h.year_built %></td>
+        <td><%= h.style %></td>
+        <td>$<%= h.list_price %></td>
+        <td><%= h.num_floors %></td>
+        <td><%= h.basement ? "Yes" : "No" %></td>
+        <td>
+          <%= button_to "View", house_path(h), method: :get,
+              :class => "btn btn-primary" %>
+        </td>
+        <td>
+          <%= button_to "Edit", edit_house_path(h), method: :get,
+              :disabled => hunter_signed_in? || (realtor_signed_in? && h.realtor != current_realtor),
+              :class => "btn btn-success" %>
+        </td>
+        <td>
+          <%= button_to "Delete", h, method: :delete,
+              data: { confirm: "Are you sure?" },
+              :disabled => hunter_signed_in? || (realtor_signed_in? && h.realtor != current_realtor),
+              :class => "btn btn-danger" %>
+        </td>
+        <td>
+          <%= link_to "Inquiries", inquiries_path({ house_id: h.id }), method: :get,
+              :class => "btn btn-primary" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="col-md-12">
+    <% if realtor_signed_in? %>
+      <%= button_to "Create", new_house_path, method: :get,
+          :class => "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
