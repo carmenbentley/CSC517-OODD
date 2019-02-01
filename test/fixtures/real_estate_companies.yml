@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  website: MyString
+  address: MyString
+  size: 100
+  founded: 1987
+  revenue: 100000
+  synopsis: MyString
+
+two:
+  name: MyString
+  website: MyString
+  address: MyString
+  size: 10
+  founded: 100
+  revenue: 2018
+  synopsis: MyString

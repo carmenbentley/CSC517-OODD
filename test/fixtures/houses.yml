@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  square_footage: 9.99
+  year_built: 1
+  style: MyString
+  list_price: 9.99
+  num_floors: 1
+  basement: 
+
+two:
+  location: MyString
+  square_footage: 9.99
+  year_built: 1
+  style: MyString
+  list_price: 9.99
+  num_floors: 1
+  basement: 
