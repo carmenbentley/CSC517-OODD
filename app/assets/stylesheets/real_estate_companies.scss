@@ -1,0 +1,24 @@
+// Place all the styles related to the RealEstateCompanies controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+th.header {
+  text-align: center;
+}
+
+.content {
+  text-align: left;
+}
+
+.title > span {
+  font-weight: 700;
+  text-align: right;
+}
+
+.notice {
+  padding: 4px;
+  text-align: center;
+}
+
+pre {
+  margin: 0 auto !important;
+}
